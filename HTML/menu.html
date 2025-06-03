@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RapidoySabroso</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="../CSS/estilos.css" />
+  </head>
+  <body>
+    <header>
+      <div class="menu container">
+        <img class="logo-1" src="../images/logo.svg" alt="" />
+        <input type="checkbox" id="menu" />
+        <label for="menu">
+          <img class="menu-icono" src="../images/menu.png" alt="" />
+        </label>
+
+        <nav class="navbar">
+          <div class="menu-1">
+            <ul>
+              <li><a href="../HTML/index.html">Inicio</a></li>
+              <li><a href="../HTML/menu.html">Men&uacute;</a></li>
+              <li><a href="../HTML/reservacion.html">Reservaci&oacute;n</a></li>
+              <!-- <li><a href="#">Qui&eacute;nes Somos</a></li> -->
+            </ul>
+          </div>
+
+          <img class="logo-2" src="../images/logo.svg" alt="" />
+
+          <div class="menu-2">
+            <ul>
+              <li>
+                <a href="../HTML/iniciarsesion.html">Iniciar Sesi&oacute;n</a>
+              </li>
+            </ul>
+            <ul>
+              <li><a href="../HTML/perfilusuario.html">Perfil</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="products">
+      <div class="tabs container">
+        <!-- Pestaña Hamburguesas -->
+        <input
+          type="radio"
+          name="tabs"
+          id="tab1"
+          checked="checked"
+          class="tapInput"
+          value="1"
+        />
+        <label for="tab1">Hamburguesas</label>
+        <div class="tab">
+          <div class="product-grid">
+            <!-- Cambiamos swiper por product-grid -->
+            <div class="product">
+              <div class="product-img">
+                <h4>Nuevo</h4>
+                <img src="../images/hpulpo.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Hamburguesa de Pulpo</h4>
+                <p>Triple pulpo + queso fundido + pan brioche =
+                   ¡El sabor del mar que no podrás soltar!</p>
+                <span class="price">$150.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+            <div class="product">
+              <div class="product-img">
+                <h4>Nuevo</h4>
+                <img src="../images/hcamaron.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Hamburguesa de camarón</h4>
+                <p>Camarones grillados con mantequilla de limón, 
+                  aguacate y cilantro. Fresco, ligero y lleno de sabor</p>
+                <span class="price">$150.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+            <div class="product">
+              <div class="product-img">
+                <h4>Nuevo</h4>
+                <img src="../images/hatun.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Hamburguesa de atún</h4>
+                <p>Atún a la parrilla, lechuga, tomate y salsa especial, en pan integral. Sencilla pero deliciosa.</p>
+                <span class="price">$130.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+            
+              <div class="product">
+              <div class="product-img">
+                <img src="../images/hlentejas.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Hamburguesa de lentejas</h4>
+                <p>Lentejas, quinoa y especias, con vegetales frescos 
+                  y aderezo especial. Crujiente por fuera, suave por dentro</p>
+                <span class="price">$110.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+
+             <div class="product">
+              <div class="product-img">     
+                <img src="../images/hpollo.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Hamburguesa de pollo</h4>
+                <p>Pechuga de pollo marinada en hierbas, asada al punto perfecto  y 
+                   con un toque de mostaza con miel.</p>
+                <span class="price">$100.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="product">
+              <div class="product-img">     
+                <img src="../images/bbq.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Hamburguesa BBQ</h4>
+                <p>Carne + BBQ + tocino + queso</p>
+                <span class="price">$100.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+
+            
+            <div class="product">
+              <div class="product-img">     
+                <img src="../images/masvendido.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Hamburguesa Monstruo</h4>
+                <p>Doble carne de res 100% angus, queso cheddar derretido, tocino crujiente,
+                  aros de cebolla, lechuga fresca, jitomate, pepinillos</p>
+                <span class="price">$300.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+<!-- ************************************************************************ -->
+
+
+        <!-- Pestaña Burritos -->
+        <input type="radio" name="tabs" id="tab2" class="tapInput" value="2" />
+        <label for="tab2">Burritos</label>
+        <div class="tab">
+          <div class="product-grid">
+            <!-- Misma estructura que hamburguesas -->
+            <div class="product">
+              <div class="product-img">
+                <h4>Nuevo</h4>
+                <img src="../images/food4.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Producto</h4>
+                <p>Calidad premium</p>
+                <span class="price">$80.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+            <!-- Más productos... -->
+          </div>
+        </div>
+
+        <!-- Pestaña Variedad -->
+        <input type="radio" name="tabs" id="tab3" class="tapInput" value="3" />
+        <label for="tab3">Variedad</label>
+        <div class="tab">
+          <div class="product-grid">
+            <!-- Misma estructura que hamburguesas -->
+            <div class="product">
+              <div class="product-img">
+                <h4>Nuevo</h4>
+                <img src="../images/food7.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Producto</h4>
+                <p>Calidad premium</p>
+                <span class="price">$80.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+            <!-- Más productos... -->
+          </div>
+        </div>
+
+        <!-- Pestaña Promociones -->
+        <input type="radio" name="tabs" id="tab4" class="tapInput" value="4" />
+        <label for="tab4">Promociones</label>
+        <div class="tab">
+          <div class="product-grid">
+            <!-- Misma estructura que hamburguesas -->
+            <div class="product">
+              <div class="product-img">           
+                <img src="../images/slider1.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Clásica bacon</h4>
+                <p>Jugosa carne 100% res,tocino crujiente,
+                  queso derretido y salsa especial</p>
+                <span class="price">$50.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+            
+             <div class="product">
+              <div class="product-img"> 
+                <img src="../images/slider3.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Clásica cheeseburguer</h4>
+                <p>Carne 100% res, tocino crujiente, queso derretido y salsa especial</p>
+                <span class="price">$50.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="product">
+              <div class="product-img"> 
+                <img src="../images/slider2.png" alt="" />
+              </div>
+              <div class="product-txt">
+                <h4>Torta cláscia</h4>
+                <p>Pan artesanal tostado, relleno de jamón de primera,
+                  queso gratinado, aguacate fresco y un toque de
+                  chipotle.</p>
+                <span class="price">$50.00</span>
+                <button class="btn-add">Añadir al carrito</button>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer container">
+      <img class="logo-2" src="../images/logo.svg" alt="" />
+      <div class="links">
+        <h4>Sobre Nosotros</h4>
+        <ul>
+          <li><a href="../HTML/quienessomos.html">Qui&eacute;nes Somos</a></li>
+          <!-- <li><a href="#">Aviso de Privacidad</a></li> -->
+          <!-- <li><a href="#">lorem3</a></li>
+			<li><a href="#">lorem4</a></li> -->
+        </ul>
+      </div>
+      <div class="links">
+        <h4>Descubre</h4>
+        <ul>
+          <li><a href="../HTML/menu.html">Men&uacute;</a></li>
+          <!-- <li><a href="#">lorem2</a></li>
+			<li><a href="#">lorem3</a></li>
+			<li><a href="#">lorem4</a></li> -->
+        </ul>
+      </div>
+      <div class="links">
+        <h4>Avisos legales</h4>
+        <ul>
+          <li>
+            <a href="../HTML/avisoslegales.html">Terminos y Condiciones</a>
+          </li>
+          <li><a href="../HTML/avisoslegales.html">Aviso de privacidad</a></li>
+          <!-- <li><a href="#">lorem3</a></li>
+			<li><a href="#">lorem4</a></li> -->
+        </ul>
+      </div>
+      <div class="links">
+        <h4>S&iacute;guenos</h4>
+        <div class="socials">
+          <a href="https://facebook.com/" target="_blank">
+            <div class="social">
+              <img src="../images/s1.svg" alt="" />
+            </div>
+          </a>
+          <a href="https://x.com/" target="_blank">
+            <div class="social">
+              <img src="../images/s2.svg" alt="" />
+            </div>
+          </a>
+          <a href="https://instagram.com/" target="_blank">
+            <div class="social">
+              <img src="../images/s3.svg" alt="" />
+            </div>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="../JavaScript/script.js"></script>
+  </body>
+</html>
