@@ -29,6 +29,7 @@ function eventListeners() {
         productsArray=JSON.parse(loadProd);
         productsHtml();
         updatecartcount();
+        updateTotal();
         
     }else{
         productsArray=[];
