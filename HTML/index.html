@@ -28,7 +28,7 @@
 						<li><a href="../HTML/index.html">Inicio</a></li>
 						<li><a href="../HTML/menu.html">Men&uacute;</a></li>
 						<li><a href="../HTML/reservacion.html">Reservaci&oacute;n</a></li>
-						<!-- <li><a href="#">Qui&eacute;nes Somos</a></li> -->
+						
 					</ul>
 
 				</div>
@@ -43,29 +43,73 @@
 						<ul>
 							<li><a href="../HTML/perfilusuario.html">Perfil</a></li>
 						</ul>
-						<!-- <div class="socials">
-								<a href="https://www.facebook.com" target="_blank">
-									<div class="social">
 
-										<img src="../images/s1.svg" alt="">
-									</div>
-								</a>
-								<a href="https://twitter.com" target="_blank">
-									<div class="social">
+						<ul>
+						<li>
+						<div class="btn-cart">
+							<img src="../images/carrito.png" alt="carrito de compras" class="imgcarrito icon-cart">
+							<span id="cuentacart">0</span>
+						
+							<div class="cart">
+								<div class="cart-responsive">
+									<table>
+										<thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentProducts">
+                                    <!-- <tr>
+                                        <td><img src="../images/vacio.png" alt=""></td>
+                                        <td>
+                                            Lorem ipsum dolor sit.
+                                        </td>
+                                        <td>$15</td>
+                                        <td>
+                                            <input type="number" min="1">
+                                        </td>
+                                        <td>
+                                            <button type="button">X</button>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                    
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" class="total">
+                                            <h4 class="heading-total">Total: <span id="total"></span></h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <button type="button" id="emptyCart">Vaciar Carrito</button>
+                                        </td>
+                                    </tr>
 
-										<img src="../images/s2.svg" alt="">
-									</div>
-								</a>
-								<a href="https://instagram.com" target="_blank">
-									<div class="social">
-
-										<img src="../images/s3.svg" alt="">
-									</div>
-								</a>
-						</div> -->
+									 <tr>
+                                        <td colspan="5">
+                                            <button type="button" id="pagar">Pagar</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+									</table>
+								</div>
+							</div>
+						</div>
+						</li>
+						
+						</ul>
 					
+
+
+
 				</div>
 
+				
 			</nav>
 				
 		</div>
@@ -80,7 +124,7 @@
 								<p>Jugosa carne 100% res, tocino crujiente, queso derretido y salsa especial. 
 								</p>
 								<div class="botones">
-									<a href="#" class="btn-1">Ordenar Ahora</a>
+									<a href="#" class="btn-1 btn-add">Ordenar Ahora</a>
 									<a href="../HTML/menu.html" class="btn-1">Menú</a>
 									
 								</div>
@@ -98,7 +142,7 @@
         						aguacate fresco y un toque de chipotle.
 								</p>
 								<div class="botones">
-									<a href="#" class="btn-1">Ordenar Ahora</a>
+									<a href="#" class="btn-1 btn-add">Ordenar Ahora</a>
 									<a href="#" class="btn-1">Menú</a>
 									
 								</div>
@@ -116,7 +160,7 @@
         						cebolla caramelizada y salsa especial en pan brioche.
 								</p>
 								<div class="botones">
-									<a href="#" class="btn-1">Ordenar Ahora</a>
+									<a href="#" class="btn-1 btn-add">Ordenar Ahora</a>
 									<a href="#" class="btn-1">Menú</a>
 									
 								</div>
@@ -192,7 +236,7 @@
 				</div>
 <!-- ------------------------------------------------------------------------------------------------------ -->
 				<input type="radio" name="tabs" id="tab2" checked="checked" class="tapInput" value="2">
-				<label for="tab2">Burritos</label>
+				<label for="tab2">Pizzas</label>
 				<div class="tab">
 					<div class="swiper mySwiper-2" id="swiper2">
 						<div class="swiper-wrapper">
@@ -201,12 +245,12 @@
 								<div class="product">
 									<div class="product-img">
 											<h4>Nuevo</h4>
-											<img src="../images/food4.png" alt="">
+											<img src="../images/pizaca.png" alt="">
 									</div>
 									<div class="product-txt">
-											<h4>Burrito carne molida</h4>
+											<h4>Pizza de camarón</h4>
 											
-											<span class="price">$80.00</span>
+											<span class="price">$200.00</span>
 									</div>
 								</div>
 							</div>	
@@ -214,12 +258,12 @@
 								<div class="product">
 									<div class="product-img">
 											<h4>Nuevo</h4>
-											<img src="../images/food5.png" alt="">
+											<img src="../images/pizzapulpo.png" alt="">
 									</div>
 									<div class="product-txt">
-											<h4>Burrito de Chuleta</h4>
+											<h4>Pizza de pulpo</h4>
 											
-											<span class="price">$70.00</span>
+											<span class="price">$220.00</span>
 									</div>
 								</div>
 							</div>	
@@ -227,12 +271,12 @@
 								<div class="product">
 									<div class="product-img">
 											<h4>Nuevo</h4>
-											<img src="../images/food6.png" alt="">
+											<img src="../images/pizzacan.png" alt="">
 									</div>
 									<div class="product-txt">
-											<h4>Burrito de camarón</h4>
+											<h4>Pizza de cangrejo</h4>
 											
-											<span class="price">$60.00</span>
+											<span class="price">$260.00</span>
 									</div>
 								</div>
 							</div>	
@@ -281,12 +325,12 @@
 								<div class="product">
 									<div class="product-img">
 											<h4>Nuevo</h4>
-											<img src="../images/food9.png" alt="">
+											<img src="../images/panajo.png" alt="">
 									</div>
 									<div class="product-txt">
-											<h4>Pizza de peperoni</h4>
+											<h4>Pan de ajo</h4>
 											
-											<span class="price">$60.00</span>
+											<span class="price">$90.00</span>
 									</div>
 								</div>
 							</div>	
@@ -314,7 +358,7 @@
 		<h4>Hamburguesa “Monstruo”</h4>
 		<p>Una bestia entre panes: doble carne de res 100% angus, queso cheddar derretido, tocino crujiente, aros de cebolla, lechuga fresca, jitomate, pepinillos y nuestra salsa secreta “Monstruo”, todo en un pan brioche artesanal.
 		</p>
-		<a href="#" class="btn-2">Ordenar</a>
+		<a href="#" class="btn-2 btn-add">Ordenar</a>
 	</div>
 </section>
 
@@ -375,18 +419,14 @@
 		<h4>Sobre Nosotros</h4>
 		<ul>
 			<li><a href="../HTML/quienessomos.html">Qui&eacute;nes Somos</a></li>
-			<!-- <li><a href="#">Aviso de Privacidad</a></li> -->
-			<!-- <li><a href="#">lorem3</a></li>
-			<li><a href="#">lorem4</a></li> -->
+		
 		</ul>
 	</div>
 	<div class="links">
 		<h4>Descubre</h4>
 		<ul>
 			<li><a href="../HTML/menu.html">Men&uacute;</a></li>
-			<!-- <li><a href="#">lorem2</a></li>
-			<li><a href="#">lorem3</a></li>
-			<li><a href="#">lorem4</a></li> -->
+			
 		</ul>
 	</div>
 	<div class="links">
@@ -394,8 +434,7 @@
 		<ul>
 			<li><a href="../HTML/avisoslegales.html">Terminos y Condiciones</a></li>
 			<li><a href="../HTML/avisoslegales.html">Aviso de privacidad</a></li>
-			<!-- <li><a href="#">lorem3</a></li>
-			<li><a href="#">lorem4</a></li> -->
+			
 		</ul>
 	</div>
 	<div class="links">
@@ -429,6 +468,7 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 	<script src="../JavaScript/script.js"></script>
+	<script src="../JavaScript/app.js"></script>
 
 </body>
 </html>

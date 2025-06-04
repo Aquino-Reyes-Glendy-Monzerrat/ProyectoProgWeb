@@ -698,3 +698,182 @@ padding: 50px 30px;
     grid-template-columns: 1fr;
   }
 }
+
+
+
+.imgcarrito {
+    width: 50px;
+    height: auto;
+}
+
+
+/* Contenedor del botón del carrito */
+.btn-cart {
+    position: relative;
+}
+
+/* Ícono del carrito */
+.btn-cart .icon-cart {
+    font-size: 2.6rem;
+    color: chartreuse;
+}
+
+/* Contador de productos */
+.btn-cart span {
+    color: white;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+/* Contenedor principal del carrito (oculto por defecto) */
+.cart {
+    display: none;
+    position: absolute;
+    opacity: 0;
+    right: -1rem;
+    top: 3rem;
+    background-color: rgb(0,0,0,.60);
+    backdrop-filter: blur(5px);
+    padding: 2rem;
+    border-radius: .8rem;
+    z-index: 10;
+}
+
+/* Mostrar carrito al hacer hover */
+.btn-cart:hover .cart {
+    display: block;
+    opacity: 1;
+}
+
+/* Tabla del carrito */
+.cart table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Encabezados de la tabla */
+.cart thead th {
+    padding: 1rem;
+    color: #f7f8f9;
+    border-bottom: 1px solid white;
+}
+
+/* Celdas del cuerpo de la tabla */
+.cart tbody td {
+    color: #f7f8f9;
+    padding: 1rem;
+}
+
+/* Imágenes de productos en el carrito */
+.cart tbody img {
+    width: 10rem;
+}
+
+/* Input de cantidad */
+.cart tbody input {
+    width: 6rem;
+    background-color: transparent;
+    border: 1px solid #f7f8f9;
+    padding: .7rem;
+    color: #f7f8f9;
+    border-radius: .5rem;
+}
+
+/* Botón para eliminar producto */
+.cart tbody button {
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    background-color: #dc2626;
+    color: #f7f8f9;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Sección del total */
+.cart .total {
+    text-align: right;
+    padding-bottom: 2rem;
+}
+
+/* Texto del total */
+.cart .heading-total {
+    color: white;
+}
+
+/* Precio total */
+.cart .heading-total span {
+    margin-left: .5rem;
+}
+
+/* Botón "Vaciar carrito" */
+.cart tfoot button {
+    width: 100%;
+    background-color: rgb(255, 255, 255, .75);
+    padding: 1rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    color: #404040;
+    font-weight: 700;
+}
+
+/* Ajuste para pantallas grandes */
+@media (min-width: 1400px) {
+    .cart {
+        right: -20rem;
+    }
+}
+
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 45px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(24, 250, 4, 0.2);
+    font-size: 2rem;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeInOut 5s ease forwards;
+}
+
+.alert.error {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.alert.success {
+    background-color: #4caf50;
+    color: #fff;
+}
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    10% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    90% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }}
+
+    /* #pagar {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #2196f3;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+} */
