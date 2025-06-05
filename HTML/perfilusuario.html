@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - Restaurante</title>
+    <link rel="stylesheet" href="../css/perfil.css">
+</head>
+<body>
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <div class="menu">
+        <div class="navbar">
+            <div class="menu-1">
+                <img src="logo1.png" alt="Logo" class="logo-1">
+                <input type="checkbox" id="menu">
+                <label for="menu">
+                    <img src="menu-icon.png" class="menu-icono" alt="Menu">
+                </label>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="menu.html">Menú</a></li>
+                    <li><a href="reservacion.html">Reservaciones</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="quienessomos.html">Quienes Somos</a></li>
+                </ul>
+            </div>
+            <div class="menu-2">
+                <img src="logo2.png" alt="Logo Principal" class="logo-2">
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL DEL PERFIL -->
+    <div class="profile-container">
+        <div class="container">
+            <div class="profile-content">
+                <!-- ENCABEZADO DEL PERFIL -->
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="avatar-default.png" alt="Avatar" id="avatarImg">
+                        <button class="change-avatar-btn" onclick="changeAvatar()">
+                            <span>📷</span>
+                        </button>
+                        <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="userName">Juan Pérez</h1>
+                        <p class="user-email" id="userEmail">juan.perez@email.com</p>
+                        <p class="member-since">Miembro desde: <span id="memberDate">Enero 2024</span></p>
+                    </div>
+                </div>
+
+                <!-- NAVEGACIÓN DE PESTAÑAS -->
+                <div class="profile-tabs">
+                    <button class="tab-btn active" onclick="showTab('personal')">Información Personal</button>
+                    <button class="tab-btn" onclick="showTab('orders')">Mis Pedidos</button>
+                    <button class="tab-btn" onclick="showTab('reservations')">Reservaciones</button>
+                    <button class="tab-btn" onclick="showTab('security')">Seguridad</button>
+                </div>
+
+                <!-- CONTENIDO DE LAS PESTAÑAS -->
+                <div class="tab-content">
+                    <!-- INFORMACIÓN PERSONAL -->
+                    <div id="personal" class="tab-panel active">
+                        <div class="profile-section">
+                            <h2>Información Personal</h2>
+                            <form class="profile-form" id="personalForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="firstName">Nombre</label>
+                                        <input type="text" id="firstName" name="firstName" value="Juan" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Apellido</label>
+                                        <input type="text" id="lastName" name="lastName" value="Pérez" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="email">Correo Electrónico</label>
+                                        <input type="email" id="email" name="email" value="juan.perez@email.com" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Teléfono</label>
+                                        <input type="tel" id="phone" name="phone" value="+52 443 123 4567">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Dirección</label>
+                                    <textarea id="address" name="address" rows="3" placeholder="Ingresa tu dirección completa">Calle Principal #123, Col. Centro, Uruapan, Michoacán</textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="birthdate">Fecha de Nacimiento</label>
+                                        <input type="date" id="birthdate" name="birthdate" value="1990-01-15">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Género</label>
+                                        <select id="gender" name="gender">
+                                            <option value="">Seleccionar</option>
+                                            <option value="M" selected>Masculino</option>
+                                            <option value="F">Femenino</option>
+                                            <option value="O">Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-save">Guardar Cambios</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- MIS PEDIDOS -->
+                    <div id="orders" class="tab-panel">
+                        <div class="profile-section">
+                            <h2>Historial de Pedidos</h2>
+                            <div class="orders-list">
+                                <div class="order-item">
+                                    <div class="order-header">
+                                        <span class="order-id">#001</span>
+                                        <span class="order-date">15 Mayo 2024</span>
+                                        <span class="order-status delivered">Entregado</span>
+                                    </div>
+                                    <div class="order-details">
+                                        <p><strong>Total:</strong> $450.00</p>
+                                        <p><strong>Productos:</strong> Pizza Margherita, Pasta Carbonara, Bebidas</p>
+                                    </div>
+                                    <button class="btn-reorder" onclick="reorder(1)">Volver a Pedir</button>
+                                </div>
+                                <div class="order-item">
+                                    <div class="order-header">
+                                        <span class="order-id">#002</span>
+                                        <span class="order-date">10 Mayo 2024</span>
+                                        <span class="order-status pending">En Preparación</span>
+                                    </div>
+                                    <div class="order-details">
+                                        <p><strong>Total:</strong> $320.00</p>
+                                        <p><strong>Productos:</strong> Hamburguesa Clásica, Papas Fritas</p>
+                                    </div>
+                                    <button class="btn-track" onclick="trackOrder(2)">Rastrear Pedido</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RESERVACIONES -->
+                    <div id="reservations" class="tab-panel">
+                        <div class="profile-section">
+                            <h2>Mis Reservaciones</h2>
+                            <div class="reservations-list">
+                                <div class="reservation-item">
+                                    <div class="reservation-header">
+                                        <span class="reservation-id">#R001</span>
+                                        <span class="reservation-date">20 Mayo 2024 - 19:30</span>
+                                        <span class="reservation-status confirmed">Confirmada</span>
+                                    </div>
+                                    <div class="reservation-details">
+                                        <p><strong>Mesa para:</strong> 4 personas</p>
+                                        <p><strong>Ocasión:</strong> Cena familiar</p>
+                                    </div>
+                                    <div class="reservation-actions">
+                                        <button class="btn-modify" onclick="modifyReservation(1)">Modificar</button>
+                                        <button class="btn-cancel" onclick="cancelReservation(1)">Cancelar</button>
+                                    </div>
+                                </div>
+                                <div class="reservation-item">
+                                    <div class="reservation-header">
+                                        <span class="reservation-id">#R002</span>
+                                        <span class="reservation-date">25 Mayo 2024 - 20:00</span>
+                                        <span class="reservation-status pending">Pendiente</span>
+                                    </div>
+                                    <div class="reservation-details">
+                                        <p><strong>Mesa para:</strong> 2 personas</p>
+                                        <p><strong>Ocasión:</strong> Cita romántica</p>
+                                    </div>
+                                    <div class="reservation-actions">
+                                        <button class="btn-modify" onclick="modifyReservation(2)">Modificar</button>
+                                        <button class="btn-cancel" onclick="cancelReservation(2)">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEGURIDAD -->
+                    <div id="security" class="tab-panel">
+                        <div class="profile-section">
+                            <h2>Configuración de Seguridad</h2>
+                            <form class="security-form" id="securityForm">
+                                <div class="form-group">
+                                    <label for="currentPassword">Contraseña Actual</label>
+                                    <input type="password" id="currentPassword" name="currentPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">Nueva Contraseña</label>
+                                    <input type="password" id="newPassword" name="newPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirmar Nueva Contraseña</label>
+                                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn-save">Cambiar Contraseña</button>
+                            </form>
+                            
+                            <div class="security-options">
+                                <h3>Opciones de Seguridad</h3>
+                                <div class="security-item">
+                                    <label>
+                                        <input type="checkbox" checked>
+                                        Recibir notificaciones de seguridad por email
+                                    </label>
+                                </div>
+                                <div class="security-item">
+                                    <label>
+                                        <input type="checkbox">
+                                        Autenticación de dos factores (2FA)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Confirmar Acción</h2>
+            <p id="modalMessage">¿Estás seguro de que deseas realizar esta acción?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" id="confirmBtn">Confirmar</button>
+                <button class="btn-cancel-modal" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JavaScript/perfil.js"></script>
+</body>
+</html>
