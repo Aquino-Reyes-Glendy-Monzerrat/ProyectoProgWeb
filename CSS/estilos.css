@@ -233,6 +233,9 @@ float: left;
     display: flex;
     flex-wrap: wrap;
     padding: 100px 0px;
+    justify-content: center; 
+     gap: 60px;
+     margin-top: 30px;
 }
 
 .tabs label{
@@ -881,3 +884,40 @@ padding: 50px 30px;
     border-radius: 5px;
     cursor: pointer;
 } */
+
+
+.cart-responsive {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 7px; 
+}
+
+@media (max-width: 768px) {
+    .cart {
+        width: 90%; 
+        right: 0; 
+        padding: 1rem; 
+    }
+
+    .cart table {
+        font-size: 15px;
+    }
+
+    .cart tbody img {
+        width: 30px; 
+    }
+
+    .cart tbody input {
+        width: 55px; 
+    }
+
+    .cart tbody button {
+        width: 15px;
+        height: 15px; 
+    }
+}
+
+.cart-responsive {
+    overflow-x: auto; 
+}
