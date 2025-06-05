@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>RapidoySabroso</title>
+	
+
+<meta name="description" content="¡Ven y prueba nuestra deliciosa comida rápida!">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://aquino-reyes-glendy-monzerrat.github.io/ProyectoProgWeb/HTML/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Restaurant-Rápido y Sabroso">
+<meta property="og:description" content="¡Ven y prueba nuestra deliciosa comida rápida!">
+<meta property="og:image" content="https://raw.githubusercontent.com/Aquino-Reyes-Glendy-Monzerrat/ProyectoProgWeb/2eb1827221d93ed207cd23883ad3edc9ec1fa43f/images/meta.jpg">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="aquino-reyes-glendy-monzerrat.github.io">
+<meta property="twitter:url" content="https://aquino-reyes-glendy-monzerrat.github.io/ProyectoProgWeb/HTML/index.html">
+<meta name="twitter:title" content="Restaurant-Rápido y Sabroso">
+<meta name="twitter:description" content="¡Ven y prueba nuestra deliciosa comida rápida!">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Aquino-Reyes-Glendy-Monzerrat/ProyectoProgWeb/2eb1827221d93ed207cd23883ad3edc9ec1fa43f/images/meta.jpg">
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="../CSS/estilos.css">
+</head>
+<body>
+	
+	<header>
+		
+		<div class="menu container">
+
+			<img class="logo-1" src="../images/logo.svg" alt="">
+			<input type="checkbox" id="menu">
+			<label	for="menu" >
+				<img class="menu-icono" src="../images/menu.png" alt="">
+			</label>
+
+			<nav class="navbar">
+
+				<div class="menu-1">
+				
+					<ul>
+						<li><a href="../HTML/index.html">Inicio</a></li>
+						<li><a href="../HTML/menu.html">Men&uacute;</a></li>
+						<!-- <li><a href="../HTML/reservacion.html">Reservaci&oacute;n</a></li> -->
+						
+					</ul>
+
+				</div>
+
+				<ul><li><img class="logo-2" src="../images/logo.svg" alt="" /></li></ul>
+          
+
+
+				
+						<ul>
+							<li><a href="../HTML/iniciarsesion.html">Iniciar Sesi&oacute;n</a></li>
+						</ul>
+						<ul>
+							<li><a href="../HTML/perfilusuario.html">Perfil</a></li>
+						</ul>
+
+						<ul>
+						<li>
+						<div class="btn-cart">
+							<img src="../images/carrito.png" alt="carrito de compras" class="imgcarrito icon-cart">
+							<span id="cuentacart">0</span>
+						
+							<div class="cart">
+								<div class="cart-responsive">
+									<table>
+										<thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Descripcción</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentProducts">
+                                    
+                                </tbody>
+                    
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" class="total">
+                                            <h4 class="heading-total">Total: <span id="total"></span></h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <button type="button" id="emptyCart">Vaciar Carrito</button>
+                                        </td>
+                                    </tr>
+
+									 <tr>
+                                        <td colspan="5">
+                                            <button type="button" id="pagar">Pagar</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+									</table>
+								</div>
+							</div>
+						</div>
+						</li>						
+					</ul>				
+						
+			</nav>			
+		</div>
+
+
+
+		
+
+	</header>	
+
+ <section class="terminos-condiciones">
+    <div class="container">
+        <h2>Términos y Condiciones</h2>
+        <div class="info-terminos">
+            <div class="txt">
+                <p>Al utilizar nuestros servicios, aceptas los siguientes términos y condiciones. Nos comprometemos a ofrecer una experiencia de calidad, pero es importante que conozcas tus derechos y responsabilidades como usuario.</p>
+                <p>Todos los productos y servicios ofrecidos están sujetos a disponibilidad y pueden cambiar sin previo aviso. Nos reservamos el derecho de modificar precios, promociones y políticas según lo consideremos necesario.</p>
+                <p>El uso indebido de nuestra plataforma, incluyendo fraude o abuso, puede resultar en la cancelación del servicio sin previo aviso.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="aviso-legal">
+    <div class="container">
+        <h2>Aviso Legal</h2>
+        <div class="info-aviso">
+            <div class="txt">
+                <p>La información presentada en esta página es únicamente con fines informativos. Nos esforzamos por mantener la exactitud de los datos, pero no garantizamos que estén siempre actualizados.</p>
+                <p>Todos los derechos sobre los contenidos, logotipos e imágenes pertenecen a sus respectivos propietarios. El uso de este sitio implica la aceptación de nuestras políticas de privacidad y términos de uso.</p>
+                <p>Si tienes alguna duda o consulta sobre nuestras políticas, puedes contactarnos a través de nuestros canales oficiales.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="aviso-privacidad">
+    <div class="container">
+        <h2>Aviso de Privacidad</h2>
+        <div class="info-privacidad">
+            <div class="txt">
+                <p>En cumplimiento con las disposiciones legales de protección de datos personales, nos comprometemos a garantizar la seguridad y privacidad de la información de nuestros usuarios.</p>
+                <p>Los datos personales que recopilamos podrán incluir información como nombre, correo electrónico y preferencias de usuario, únicamente con el propósito de mejorar la experiencia dentro de nuestro sitio web.</p>
+                <p>Nos comprometemos a no compartir, vender ni divulgar datos personales a terceros.</p>
+                <p>Para más información sobre el manejo de datos personales, puedes contactarnos a través de nuestros canales oficiales</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="horario">
+	<div class="horario-info container">
+		
+			<h2>Información</h2>
+		<div class="horario-txt">
+			<div class="txt">
+				<h4>Dirección</h4>
+				<p>Av Insurgentes 330, 17 de Octubre, 77013 Chetumal, Q.R. </p>
+			</div>
+			<div class="txt">
+				<h4>Horario</h4>
+				<p> Lunes a Domingo </p>
+				<p>12:00 pm – 11:00 pm </p>
+			</div>
+			<div class="txt">
+				<h4>Tel&eacute;fono</h4>
+				<p>9831234567 </p>
+				<p>9831234569 </p>
+			</div>
+			<div class="txt">
+				<h4>Redes Sociales</h4>
+				<div class="socials">
+					<a href="https://facebook.com/" target="_blank">
+						<div class="social">
+
+							<img src="../images/s1.svg" alt="">
+						</div>
+					</a>
+					<a href="https://x.com/" target="_blank">
+						<div class="social">
+
+							<img src="../images/s2.svg" alt="">
+						</div>
+					</a>
+					<a href="https://instagram.com/" target="_blank">
+						<div class="social">
+
+							<img src="../images/s3.svg" alt="">
+						</div>
+					</a>
+			    </div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4499.05100527269!2d-88.30389359725773!3d18.518240644861958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5ba4ab1b8e835d%3A0x847731bd399905be!2sTecNM%20-%20Campus%20Chetumal!5e0!3m2!1ses-419!2smx!4v1745091823478!5m2!1ses-419!2smx" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+
+
+<footer class="footer container">
+	<img class="logo-2" src="../images/logo.svg" alt="">
+	<div class="links">
+		<h4>Sobre Nosotros</h4>
+		<ul>
+			<li><a href="../HTML/quienessomos.html">Qui&eacute;nes Somos</a></li>
+		
+		</ul>
+	</div>
+	<div class="links">
+		<h4>Descubre</h4>
+		<ul>
+			<li><a href="../HTML/menu.html">Men&uacute;</a></li>
+			
+		</ul>
+	</div>
+	<div class="links">
+		<h4>Avisos legales</h4>
+		<ul>
+			<li><a href="../HTML/avisoslegales.html">Terminos y Condiciones</a></li>
+			<li><a href="../HTML/avisoslegales.html">Aviso de privacidad</a></li>
+			
+		</ul>
+	</div>
+	<div class="links">
+		<h4>S&iacute;guenos</h4>
+		<div class="socials">
+			<a  href="https://facebook.com/" target="_blank">
+				<div class="social">
+
+					<img src="../images/s1.svg" alt="">
+				</div>
+			</a>
+			<a href="https://x.com/" target="_blank" >
+				<div class="social">
+
+					<img src="../images/s2.svg" alt="">
+				</div>
+			</a>
+			<a href="https://instagram.com/" target="_blank">
+				<div class="social">
+
+					<img src="../images/s3.svg" alt="">
+				</div>
+			</a>
+		</div>
+	</div>
+</footer>
+
+
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+	<script src="../JavaScript/script.js"></script>
+	<script src="../JavaScript/app.js"></script>
+
+</body>
+</html>
+
+

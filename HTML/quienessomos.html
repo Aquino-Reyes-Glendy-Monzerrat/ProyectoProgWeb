@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>RapidoySabroso</title>
+	
+
+<meta name="description" content="¡Ven y prueba nuestra deliciosa comida rápida!">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://aquino-reyes-glendy-monzerrat.github.io/ProyectoProgWeb/HTML/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Restaurant-Rápido y Sabroso">
+<meta property="og:description" content="¡Ven y prueba nuestra deliciosa comida rápida!">
+<meta property="og:image" content="https://raw.githubusercontent.com/Aquino-Reyes-Glendy-Monzerrat/ProyectoProgWeb/2eb1827221d93ed207cd23883ad3edc9ec1fa43f/images/meta.jpg">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="aquino-reyes-glendy-monzerrat.github.io">
+<meta property="twitter:url" content="https://aquino-reyes-glendy-monzerrat.github.io/ProyectoProgWeb/HTML/index.html">
+<meta name="twitter:title" content="Restaurant-Rápido y Sabroso">
+<meta name="twitter:description" content="¡Ven y prueba nuestra deliciosa comida rápida!">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Aquino-Reyes-Glendy-Monzerrat/ProyectoProgWeb/2eb1827221d93ed207cd23883ad3edc9ec1fa43f/images/meta.jpg">
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="../CSS/estilos.css">
+</head>
+<body>
+	
+	<header>
+		
+		<div class="menu container">
+
+			<img class="logo-1" src="../images/logo.svg" alt="">
+			<input type="checkbox" id="menu">
+			<label	for="menu" >
+				<img class="menu-icono" src="../images/menu.png" alt="">
+			</label>
+
+			<nav class="navbar">
+
+				<div class="menu-1">
+				
+					<ul>
+						<li><a href="../HTML/index.html">Inicio</a></li>
+						<li><a href="../HTML/menu.html">Men&uacute;</a></li>
+						<!-- <li><a href="../HTML/reservacion.html">Reservaci&oacute;n</a></li> -->
+						
+					</ul>
+
+				</div>
+
+				<ul><li><img class="logo-2" src="../images/logo.svg" alt="" /></li></ul>
+          
+
+
+				
+						<ul>
+							<li><a href="../HTML/iniciarsesion.html">Iniciar Sesi&oacute;n</a></li>
+						</ul>
+						<ul>
+							<li><a href="../HTML/perfilusuario.html">Perfil</a></li>
+						</ul>
+
+						<ul>
+						<li>
+						<div class="btn-cart">
+							<img src="../images/carrito.png" alt="carrito de compras" class="imgcarrito icon-cart">
+							<span id="cuentacart">0</span>
+						
+							<div class="cart">
+								<div class="cart-responsive">
+									<table>
+										<thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Descripcción</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contentProducts">
+                                    
+                                </tbody>
+                    
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" class="total">
+                                            <h4 class="heading-total">Total: <span id="total"></span></h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <button type="button" id="emptyCart">Vaciar Carrito</button>
+                                        </td>
+                                    </tr>
+
+									 <tr>
+                                        <td colspan="5">
+                                            <button type="button" id="pagar">Pagar</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+									</table>
+								</div>
+							</div>
+						</div>
+						</li>						
+					</ul>				
+						
+			</nav>			
+		</div>
+
+
+
+		
+
+	</header>	
+
+  <section class="nosotros">
+    <div class="container">
+        <h2>Sobre Nosotros</h2>
+        <div class="info-nos">
+            <div class="txt">
+                <p>Somos un restaurante de comida rápida comprometido con ofrecer productos de la más alta calidad, preparados con ingredientes frescos y un toque especial que nos distingue. Creemos en la rapidez sin sacrificar el sabor, brindando a nuestros clientes una experiencia deliciosa en cada bocado.</p>
+                <p>Nuestro equipo trabaja día a día con pasión y dedicación para garantizar un servicio excepcional, creando un ambiente acogedor donde todos puedan disfrutar de sus platillos favoritos. La satisfacción de nuestros clientes es nuestra mayor motivación.</p>
+                <p>¡Ven y descubre por qué somos la mejor opción para quienes buscan comida rápida con calidad y sabor inigualables!</p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+<section class="imagen-nosotros">
+    <div class="container">
+        
+        <div class="imagen-contenedor">
+            <img src="../images/equipo.png" alt="Nuestro equipo">
+        </div>
+    </div>
+</section>
+
+
+
+<section class="horario">
+	<div class="horario-info container">
+		
+			<h2>Información</h2>
+		<div class="horario-txt">
+			<div class="txt">
+				<h4>Dirección</h4>
+				<p>Av Insurgentes 330, 17 de Octubre, 77013 Chetumal, Q.R. </p>
+			</div>
+			<div class="txt">
+				<h4>Horario</h4>
+				<p> Lunes a Domingo </p>
+				<p>12:00 pm – 11:00 pm </p>
+			</div>
+			<div class="txt">
+				<h4>Tel&eacute;fono</h4>
+				<p>9831234567 </p>
+				<p>9831234569 </p>
+			</div>
+			<div class="txt">
+				<h4>Redes Sociales</h4>
+				<div class="socials">
+					<a href="https://facebook.com/" target="_blank">
+						<div class="social">
+
+							<img src="../images/s1.svg" alt="">
+						</div>
+					</a>
+					<a href="https://x.com/" target="_blank">
+						<div class="social">
+
+							<img src="../images/s2.svg" alt="">
+						</div>
+					</a>
+					<a href="https://instagram.com/" target="_blank">
+						<div class="social">
+
+							<img src="../images/s3.svg" alt="">
+						</div>
+					</a>
+			    </div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	<iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4499.05100527269!2d-88.30389359725773!3d18.518240644861958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5ba4ab1b8e835d%3A0x847731bd399905be!2sTecNM%20-%20Campus%20Chetumal!5e0!3m2!1ses-419!2smx!4v1745091823478!5m2!1ses-419!2smx" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+
+
+<footer class="footer container">
+	<img class="logo-2" src="../images/logo.svg" alt="">
+	<div class="links">
+		<h4>Sobre Nosotros</h4>
+		<ul>
+			<li><a href="../HTML/quienessomos.html">Qui&eacute;nes Somos</a></li>
+		
+		</ul>
+	</div>
+	<div class="links">
+		<h4>Descubre</h4>
+		<ul>
+			<li><a href="../HTML/menu.html">Men&uacute;</a></li>
+			
+		</ul>
+	</div>
+	<div class="links">
+		<h4>Avisos legales</h4>
+		<ul>
+			<li><a href="../HTML/avisoslegales.html">Terminos y Condiciones</a></li>
+			<li><a href="../HTML/avisoslegales.html">Aviso de privacidad</a></li>
+			
+		</ul>
+	</div>
+	<div class="links">
+		<h4>S&iacute;guenos</h4>
+		<div class="socials">
+			<a  href="https://facebook.com/" target="_blank">
+				<div class="social">
+
+					<img src="../images/s1.svg" alt="">
+				</div>
+			</a>
+			<a href="https://x.com/" target="_blank" >
+				<div class="social">
+
+					<img src="../images/s2.svg" alt="">
+				</div>
+			</a>
+			<a href="https://instagram.com/" target="_blank">
+				<div class="social">
+
+					<img src="../images/s3.svg" alt="">
+				</div>
+			</a>
+		</div>
+	</div>
+</footer>
+
+
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+	<script src="../JavaScript/script.js"></script>
+	<script src="../JavaScript/app.js"></script>
+
+</body>
+</html>
+
+
