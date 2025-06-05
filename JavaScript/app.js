@@ -1,68 +1,81 @@
-const botones = document.querySelectorAll('.btn-add');
 let productsArray = [];
+const botones = document.querySelectorAll('.btn-add');
 const contentproducts = document.querySelector('#contentProducts');
-const emptyCart=document.querySelector('#emptyCart');
-
-
+const emptyCart = document.querySelector('#emptyCart');
 
 document.addEventListener('DOMContentLoaded', function () {
     eventListeners();
+    cargarProductosGuardados();
+    configurarPago();
 });
 
+// Configura los listeners de botones
 function eventListeners() {
     botones.forEach(boton => {
         boton.addEventListener('click', getDataElements);
     });
 
-    emptyCart.addEventListener('click',function(){
-
-        productsArray=[];
-        productsHtml();
-        updatecartcount();
-        updateTotal();
-
-    });
-
-    const loadProd=localStorage.getItem('products');
-
-    if (loadProd){
-        productsArray=JSON.parse(loadProd);
-        productsHtml();
-        updatecartcount();
-        updateTotal();
-        
-    }else{
-        productsArray=[];
+    if (emptyCart) {
+        emptyCart.addEventListener('click', function () {
+            productsArray = [];
+            productsHtml();
+            updatecartcount();
+            updateTotal();
+            localStorage.removeItem('products');
+        });
     }
-
 }
 
-
-function updatecartcount(){
-    const cuentacart=document.querySelector('#cuentacart');
-    cuentacart.textContent=productsArray.length;
+// Carga productos guardados del localStorage
+function cargarProductosGuardados() {
+    const loadProd = localStorage.getItem('products');
+    if (loadProd) {
+        productsArray = JSON.parse(loadProd);
+        productsHtml();
+        updatecartcount();
+        updateTotal();
+    }
 }
 
-
-function updateTotal(){
-    const total=document.querySelector('#total');
-    let totalprodcut=productsArray.reduce((total,prod) =>total +prod.price*prod.quantity,0);
-
-total.textContent=`$${totalprodcut.toFixed(2)}`;
-
+// Configura el botón de pagar
+function configurarPago() {
+    const btnPagar = document.getElementById('pagar');
+    if (btnPagar) {
+        btnPagar.addEventListener('click', () => {
+            const totalElement = document.getElementById('total');
+            if (totalElement) {
+                const total = totalElement.textContent;
+                localStorage.setItem('totalCarrito', total); // Guarda el total
+                window.location.href = "../HTML/pago.html"; // Redirige
+            }
+        });
+    }
 }
 
+// Actualiza el número del carrito
+function updatecartcount() {
+    const cuentacart = document.querySelector('#cuentacart');
+    if (cuentacart) cuentacart.textContent = productsArray.length;
+}
 
+// Actualiza el total del carrito
+function updateTotal() {
+    const totalElement = document.getElementById("total");
+    const totalAmount = productsArray.reduce((total, prod) => total + prod.price * prod.quantity, 0);
+    if (totalElement) {
+        totalElement.textContent = `$${totalAmount.toFixed(2)}`;
+    }
+}
 
-
-
+// Toma los datos del producto
 function getDataElements(e) {
     if (e.target.classList.contains('btn-add')) {
-        const elementHtml = e.target.closest('.product'); // Aquí subes hasta el contenedor completo
+        const elementHtml = e.target.closest('.product');
         selectData(elementHtml);
     }
 }
 
+// Agrega un producto
 function selectData(prod) {
     const productObj = {
         img: prod.querySelector('img').src,
@@ -72,130 +85,86 @@ function selectData(prod) {
         quantity: 1
     };
 
-
-    const exists  = productsArray.some(prod => prod.id=== productObj.id);
-
-    if(exists){
-
-        showAlert('El producto ya está en el carrito','error')
+    const exists = productsArray.some(prod => prod.id === productObj.id);
+    if (exists) {
+        showAlert('El producto ya está en el carrito', 'error');
         return;
     }
 
-
-    productsArray = [...productsArray, productObj];
-   showAlert('Producto añadido','success');
+    productsArray.push(productObj);
+    showAlert('Producto añadido', 'success');
     productsHtml();
     updatecartcount();
     updateTotal();
 }
 
-
-function productsHtml(){
-
+// Genera el HTML del carrito
+function productsHtml() {
     clearHtml();
 
-productsArray.forEach(prod=>{
+    productsArray.forEach(prod => {
+        const { img, title, price, quantity, id } = prod;
 
-    const {img,title,price,quantity,id}=prod;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><img src="${img}" alt="image product" style="width:50px;"></td>
+            <td><p>${title}</p></td>
+            <td><p>$${(price * quantity).toFixed(2)}</p></td>
+            <td><input type="number" min="1" value="${quantity}" data-id="${id}" oninput="updateCantidad(event)"></td>
+            <td><button type="button" onclick="destroyProduct(${id})">X</button></td>
+        `;
+        contentproducts.appendChild(tr);
+    });
 
-    const tr=document.createElement('tr');
-
-    const tdimg=document.createElement('td');
-
-    const prodimg=document.createElement('img');
-    
-    prodimg.src=img;
-    prodimg.alt='image product'
-
-    tdimg.appendChild(prodimg);
-
-    const tdtitle = document.createElement('td');
-    const prodttitle=document.createElement('p');
-    prodttitle.textContent=title;
-    tdtitle.appendChild(prodttitle);
-
-    const tdprecio = document.createElement('td');
-    const prodprecio=document.createElement('p');
-    const newPrecio = price*quantity;
-    prodprecio.textContent=`$${newPrecio.toFixed(2)}`;
-    tdprecio.appendChild(prodprecio);
-
-    const tdcant = document.createElement('td');
-    const prodcant=document.createElement('input');
-    prodcant.type='number';
-    prodcant.min='1';
-    prodcant.value=quantity;
-    prodcant.dataset.id=id;
-    prodcant.oninput=updateCantidad;
-    tdcant.appendChild(prodcant);
-
-    const tdEliminar = document.createElement('td');
-    const prodEliminar=document.createElement('button');
-    prodEliminar.type='button';
-    prodEliminar.textContent='X';
-    prodEliminar.onclick=()=>destroyProduct(id);
-    tdEliminar.appendChild(prodEliminar);
-
-
-
-    tr.append(tdimg,tdtitle,tdprecio,prodcant,tdEliminar);
-    
-    contentproducts.appendChild(tr);
-});
-savelocal();
+    savelocal();
 }
 
-function destroyProduct(idProd){
-
-    productsArray =productsArray.filter(prod =>prod.id!==idProd);
-    showAlert('Producto eliminado','success');
+// Elimina un producto
+function destroyProduct(idProd) {
+    productsArray = productsArray.filter(prod => prod.id !== idProd);
+    showAlert('Producto eliminado', 'success');
     productsHtml();
     updatecartcount();
     updateTotal();
     savelocal();
 }
 
-
-function clearHtml(){
-
-   while(contentproducts.firstChild){
-
-    contentproducts.removeChild(contentproducts.firstChild);
-
-   }
-
+// Limpia el contenido del carrito
+function clearHtml() {
+    while (contentproducts.firstChild) {
+        contentproducts.removeChild(contentproducts.firstChild);
+    }
 }
 
+// Muestra alertas temporales
+function showAlert(message, type) {
+    const norepeat = document.querySelector('.alert');
+    if (norepeat) norepeat.remove();
 
-function showAlert(message,type){
-    const norepeat =document.querySelector('.alert');
-    if(norepeat) norepeat.remove();
-
-
-    const div=document.createElement('div');
-    div.classList.add('alert',type);
-    div.textContent=message;
-
+    const div = document.createElement('div');
+    div.classList.add('alert', type);
+    div.textContent = message;
     document.body.appendChild(div);
 
-    setTimeout(() =>div.remove(),1000);
+    setTimeout(() => div.remove(), 2000);
 }
 
-function updateCantidad(e){
+// Actualiza la cantidad de un producto
+function updateCantidad(e) {
+    const newCantidad = parseInt(e.target.value, 10);
+    const idProd = parseInt(e.target.dataset.id, 10);
+    const product = productsArray.find(prod => prod.id === idProd);
 
-    const newCantidad= parseInt(e.target.value,10);
-    const idProd=parseInt(e.target.dataset.id,10);
-    const product=productsArray.find(prod=>prod.id===idProd);
-    if(product && newCantidad>0){
-        product.quantity=newCantidad;
+    if (product && newCantidad > 0) {
+        product.quantity = newCantidad;
     }
+
     productsHtml();
     updateTotal();
     savelocal();
 }
 
-function savelocal(){
-
-    localStorage.setItem('products',JSON.stringify(productsArray));
+// Guarda productos en localStorage
+function savelocal() {
+    localStorage.setItem('products', JSON.stringify(productsArray));
 }
-

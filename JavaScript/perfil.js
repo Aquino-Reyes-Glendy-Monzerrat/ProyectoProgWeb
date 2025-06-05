@@ -30,12 +30,15 @@ function checkUserSession() {
         return;
     }
     
+    // Guardar email original para actualizaciones futuras
+    currentUser._originalEmail = currentUser.email;
+
     loadUserData();
 }
 
 // CARGAR DATOS DEL USUARIO
 function loadUserData() {
-    if (!currentUser) return;
+     if (!currentUser) return;
     
     // Actualizar encabezado del perfil
     document.getElementById('userName').textContent = currentUser.nombre || `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
@@ -80,49 +83,78 @@ function formatRegistrationDate(dateString) {
 
 // CARGAR PEDIDOS DEL USUARIO
 function loadUserOrders() {
-    const orders = currentUser.orders || [];
-    const ordersList = document.getElementById('ordersList');
-    
-    if (orders.length === 0) {
-        ordersList.innerHTML = `
-            <div class="no-orders">
-                <p>Aún no tienes pedidos realizados.</p>
-                <a href="menu.html" class="btn-order-now">Ver Menú</a>
-            </div>
-        `;
+    const users = JSON.parse(localStorage.getItem('restaurante_users_db') || '[]');
+    const userSession = JSON.parse(localStorage.getItem('userSession') || sessionStorage.getItem('userSession') || 'null');
+    if (!userSession) return;
+
+    const currentUser = users.find(u => u.email === userSession.email);
+    if (!currentUser || !currentUser.orders || currentUser.orders.length === 0) {
+        document.getElementById('ordersList').innerHTML = `
+            <div class="alert alert-info mt-3" role="alert">
+                No tienes pedidos realizados.
+            </div>`;
         return;
     }
-    
-    let ordersHTML = '';
-    orders.forEach(order => {
-        ordersHTML += `
-            <div class="order-item">
-                <div class="order-header">
-                    <span class="order-id">#${order.id}</span>
-                    <span class="order-date">${formatDate(order.date)}</span>
-                    <span class="order-status ${order.status}">${getStatusText(order.status)}</span>
-                </div>
-                <div class="order-details">
-                    <p><strong>Total:</strong> ${formatCurrency(order.total)}</p>
-                    <p><strong>Productos:</strong> ${order.items}</p>
-                </div>
-                <button class="btn-reorder" onclick="reorder('${order.id}')">Volver a Pedir</button>
+
+    const ordersHTML = currentUser.orders.map(order => {
+        return `
+        <div class="card mb-3 shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                <h5 class="mb-0">Pedido #${order.id}</h5>
+                <small>${new Date(order.date).toLocaleString('es-MX')}</small>
             </div>
-        `;
-    });
-    
-    ordersList.innerHTML = ordersHTML;
+            <div class="card-body">
+                <p><strong>Total:</strong> ${formatCurrency(order.total)}</p>
+                <p><strong>Estado:</strong> <span class="badge ${order.status === 'Entregado' ? 'bg-success' : 'bg-warning'}">${order.status}</span></p>
+                <p><strong>Productos:</strong></p>
+                <ul class="list-group list-group-flush mb-3">
+                    ${order.items.map(item => `<li class="list-group-item">${item.title} x${item.quantity}</li>`).join('')}
+                </ul>
+                <button class="btn btn-outline-primary btn-sm" onclick="reorder(${order.id})">
+                    <i class="bi bi-cart-plus"></i> Volver a pedir
+                </button>
+            </div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('ordersList').innerHTML = ordersHTML;
 }
 
-// OBTENER TEXTO DEL ESTADO
-function getStatusText(status) {
-    const statusMap = {
-        'pending': 'En Preparación',
-        'delivered': 'Entregado',
-        'cancelled': 'Cancelado'
-    };
-    return statusMap[status] || status;
+// FUNCIONALIDAD DE "VOLVER A PEDIR"
+function reorder(orderId) {
+    const pedido = currentUser.orders.find(p => p.id === orderId);
+    if (!pedido) return;
+
+    let carrito = JSON.parse(localStorage.getItem('products')) || [];
+
+    pedido.items.forEach(pedidoItem => {
+        const index = carrito.findIndex(item => item.id === pedidoItem.id);
+        if (index !== -1) {
+            carrito[index].quantity += pedidoItem.quantity || 1;
+        } else {
+            carrito.push({ ...pedidoItem, quantity: pedidoItem.quantity || 1 });
+        }
+
+    });
+
+    localStorage.setItem('products', JSON.stringify(carrito));
+
+    showAlert('Productos agregados al carrito', 'success');
 }
+
+function showAlert(message, type) {
+    const norepeat = document.querySelector('.alert');
+    if (norepeat) norepeat.remove();
+
+    const div = document.createElement('div');
+    div.classList.add('alert', type);
+    div.textContent = message;
+    document.body.appendChild(div);
+
+    setTimeout(() => div.remove(), 8000);
+    window.location.href = "../HTML/menu.html";
+}
+
 
 // CONFIGURAR EVENT LISTENERS
 function setupEventListeners() {
@@ -200,8 +232,11 @@ function handlePersonalForm(e) {
 // ACTUALIZAR USUARIO EN BASE DE DATOS
 function updateUserInDatabase() {
     const users = JSON.parse(localStorage.getItem('restaurante_users_db') || '[]');
-    const userIndex = users.findIndex(user => user.email === currentUser.email);
+    const userIndex = users.findIndex(user => user.email === currentUser._originalEmail);
     
+    currentUser._originalEmail = currentUser.email;
+
+
     if (userIndex !== -1) {
         users[userIndex] = currentUser;
         localStorage.setItem('restaurante_users_db', JSON.stringify(users));
@@ -352,19 +387,6 @@ function handleAvatarChange(e) {
             showAlert('Por favor selecciona una imagen válida', 'error');
         }
     }
-}
-
-// VOLVER A PEDIR
-function reorder(orderId) {
-    showConfirmModal(
-        'Confirmar Pedido',
-        '¿Deseas volver a realizar este pedido?',
-        () => {
-            showAlert('Pedido agregado al carrito', 'success');
-            // Aquí iría la lógica para agregar al carrito
-            closeModal();
-        }
-    );
 }
 
 // CERRAR SESIÓN

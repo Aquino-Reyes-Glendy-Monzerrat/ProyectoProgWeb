@@ -1,39 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="../CSS/estilos.css">
-    <link rel="stylesheet" href="../CSS/pagoEstilo.css">
-    <title>Selecciona metodo de Pago</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../CSS/estilos.css">
+  <link rel="stylesheet" href="../CSS/pagoEstilo.css">
+  <title>Confirmación de Pedido</title>
 </head>
 <body>
-    
-    <header>
-		
-		<div class="menu container">
 
+    <header>
+		<div class="menu container">
 			<img class="logo-1" src="../images/logo.svg" alt="">
 			<input type="checkbox" id="menu">
 			<label	for="menu" >
 				<img class="menu-icono" src="../images/menu.png" alt="">
 			</label>
-
 			<nav class="navbar">
-
 				<div class="menu-1">
-				
 					<ul>
 						<li><a href="../HTML/index.html">Inicio</a></li>
 						<li><a href="../HTML/menu.html">Men&uacute;</a></li>
-						
 					</ul>
-
 				</div>
 
 				<img class="logo-2" src="../images/logo.svg" alt="" >
-
 
 				<div class="menu-2">
 						<ul>
@@ -101,62 +92,22 @@
 						</li>						
 						</ul>
 				</div>
-			</nav>
-				
+			</nav>	
 		</div>
-
 	</header>
 
-    <!------------------------------------------------------------------------------------------------------>
-<div class="payment-method">
-  <label class="method-option">
-    <input type="radio" name="payment" value="transfer">
-    <div class="method-card">
-      <img src="https://img.icons8.com/fluency/48/bank-card-back-side.png" alt="Transferencia">
-      <span>Transferencia</span>
-    </div>
-  </label>
+  <div class="contenedor">
+    <h1>¡Gracias por tu compra!</h1>
 
-  <label class="method-option">
-    <input type="radio" name="payment" value="cash">
-    <div class="method-card">
-      <img src="https://img.icons8.com/fluency/48/cash-in-hand.png" alt="Efectivo">
-      <span>Efectivo</span>
-    </div>
-  </label>
+    <div class="spinner" id="spinner"></div>
 
-
-    <div id="formEfectivo" class="hidden">
-      <h3>Pago en efectivo</h3>
-      <div class="form-group">
-        <label for="nombreE">Nombre:</label>
-        <input type="text" id="nombreE" />
-        <div class="total">Total:
-        <span class="mostrar-total"></span>
-        <button class="btn-pagar" id="pagar-efectivo">Pagar</button>
-    </div>
-    </div>
-    </div>
-
-    <div id="formTransferencia" class="hidden">
-      <h3>Pago por transferencia</h3>
-      <div class="form-group">
-        <label for="nombreT">Nombre del titular:</label>
-        <input type="text" id="nombreT" />
-      </div>
-      <div class="form-group">
-        <label for="referencia">Número de referencia:</label>
-        <input type="text" id="referencia" />
-        <div class="total">Total:
-        <span class="mostrar-total"></span>
-        <button class="btn-pagar" id="pagar-transferencia">Pagar</button>
-        </div>
-    </div>
-    </div>
+    <div id="mensaje1" class="mensaje">Estamos preparando tu pedido...</div>
+    <div id="mensaje2" class="mensaje">¡Tu pedido está listo para entrega!</div>
+    <div id="mensaje3" class="mensaje">Esperamos verte pronto de nuevo 😊</div>
   </div>
-  <!--------------------------------------------------------------------------------------------------------->
 
-    <footer class="footer container">
+
+  <footer class="footer container">
 	<img class="logo-2" src="../images/logo.svg" alt="">
 	<div class="links">
 		<h4>Sobre Nosotros</h4>
@@ -205,8 +156,7 @@
 	</div>
     </footer>
 
-    <script src="../JavaScript/app.js"></script>
-    <script src="../JavaScript/pago.js"></script>
-
+  <script src="../JavaScript/confirmacion.js"></script>
+  <script src="../JavaScript/pago.js"></script>
 </body>
 </html>
