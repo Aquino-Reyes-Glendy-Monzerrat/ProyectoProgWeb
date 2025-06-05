@@ -19,9 +19,9 @@
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="menu.html">Menú</a></li>
-                    <li><a href="reservacion.html">Reservaciones</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="quienessomos.html">Quienes Somos</a></li>
+                    <li><a href="#" onclick="logout()">Cerrar Sesión</a></li>
                 </ul>
             </div>
             <div class="menu-2">
@@ -44,9 +44,9 @@
                         <input type="file" id="avatarInput" accept="image/*" style="display: none;">
                     </div>
                     <div class="profile-info">
-                        <h1 id="userName">Juan Pérez</h1>
-                        <p class="user-email" id="userEmail">juan.perez@email.com</p>
-                        <p class="member-since">Miembro desde: <span id="memberDate">Enero 2024</span></p>
+                        <h1 id="userName">Usuario</h1>
+                        <p class="user-email" id="userEmail">usuario@email.com</p>
+                        <p class="member-since">Miembro desde: <span id="memberDate">--</span></p>
                     </div>
                 </div>
 
@@ -54,7 +54,6 @@
                 <div class="profile-tabs">
                     <button class="tab-btn active" onclick="showTab('personal')">Información Personal</button>
                     <button class="tab-btn" onclick="showTab('orders')">Mis Pedidos</button>
-                    <button class="tab-btn" onclick="showTab('reservations')">Reservaciones</button>
                     <button class="tab-btn" onclick="showTab('security')">Seguridad</button>
                 </div>
 
@@ -68,37 +67,37 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="firstName">Nombre</label>
-                                        <input type="text" id="firstName" name="firstName" value="Juan" required>
+                                        <input type="text" id="firstName" name="firstName" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="lastName">Apellido</label>
-                                        <input type="text" id="lastName" name="lastName" value="Pérez" required>
+                                        <input type="text" id="lastName" name="lastName" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="email">Correo Electrónico</label>
-                                        <input type="email" id="email" name="email" value="juan.perez@email.com" required>
+                                        <input type="email" id="email" name="email" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="phone">Teléfono</label>
-                                        <input type="tel" id="phone" name="phone" value="+52 443 123 4567">
+                                        <input type="tel" id="phone" name="phone">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Dirección</label>
-                                    <textarea id="address" name="address" rows="3" placeholder="Ingresa tu dirección completa">Calle Principal #123, Col. Centro, Uruapan, Michoacán</textarea>
+                                    <textarea id="address" name="address" rows="3" placeholder="Ingresa tu dirección completa"></textarea>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="birthdate">Fecha de Nacimiento</label>
-                                        <input type="date" id="birthdate" name="birthdate" value="1990-01-15">
+                                        <input type="date" id="birthdate" name="birthdate">
                                     </div>
                                     <div class="form-group">
                                         <label for="gender">Género</label>
                                         <select id="gender" name="gender">
                                             <option value="">Seleccionar</option>
-                                            <option value="M" selected>Masculino</option>
+                                            <option value="M">Masculino</option>
                                             <option value="F">Femenino</option>
                                             <option value="O">Otro</option>
                                         </select>
@@ -113,69 +112,10 @@
                     <div id="orders" class="tab-panel">
                         <div class="profile-section">
                             <h2>Historial de Pedidos</h2>
-                            <div class="orders-list">
-                                <div class="order-item">
-                                    <div class="order-header">
-                                        <span class="order-id">#001</span>
-                                        <span class="order-date">15 Mayo 2024</span>
-                                        <span class="order-status delivered">Entregado</span>
-                                    </div>
-                                    <div class="order-details">
-                                        <p><strong>Total:</strong> $450.00</p>
-                                        <p><strong>Productos:</strong> Pizza Margherita, Pasta Carbonara, Bebidas</p>
-                                    </div>
-                                    <button class="btn-reorder" onclick="reorder(1)">Volver a Pedir</button>
-                                </div>
-                                <div class="order-item">
-                                    <div class="order-header">
-                                        <span class="order-id">#002</span>
-                                        <span class="order-date">10 Mayo 2024</span>
-                                        <span class="order-status pending">En Preparación</span>
-                                    </div>
-                                    <div class="order-details">
-                                        <p><strong>Total:</strong> $320.00</p>
-                                        <p><strong>Productos:</strong> Hamburguesa Clásica, Papas Fritas</p>
-                                    </div>
-                                    <button class="btn-track" onclick="trackOrder(2)">Rastrear Pedido</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RESERVACIONES -->
-                    <div id="reservations" class="tab-panel">
-                        <div class="profile-section">
-                            <h2>Mis Reservaciones</h2>
-                            <div class="reservations-list">
-                                <div class="reservation-item">
-                                    <div class="reservation-header">
-                                        <span class="reservation-id">#R001</span>
-                                        <span class="reservation-date">20 Mayo 2024 - 19:30</span>
-                                        <span class="reservation-status confirmed">Confirmada</span>
-                                    </div>
-                                    <div class="reservation-details">
-                                        <p><strong>Mesa para:</strong> 4 personas</p>
-                                        <p><strong>Ocasión:</strong> Cena familiar</p>
-                                    </div>
-                                    <div class="reservation-actions">
-                                        <button class="btn-modify" onclick="modifyReservation(1)">Modificar</button>
-                                        <button class="btn-cancel" onclick="cancelReservation(1)">Cancelar</button>
-                                    </div>
-                                </div>
-                                <div class="reservation-item">
-                                    <div class="reservation-header">
-                                        <span class="reservation-id">#R002</span>
-                                        <span class="reservation-date">25 Mayo 2024 - 20:00</span>
-                                        <span class="reservation-status pending">Pendiente</span>
-                                    </div>
-                                    <div class="reservation-details">
-                                        <p><strong>Mesa para:</strong> 2 personas</p>
-                                        <p><strong>Ocasión:</strong> Cita romántica</p>
-                                    </div>
-                                    <div class="reservation-actions">
-                                        <button class="btn-modify" onclick="modifyReservation(2)">Modificar</button>
-                                        <button class="btn-cancel" onclick="cancelReservation(2)">Cancelar</button>
-                                    </div>
+                            <div class="orders-list" id="ordersList">
+                                <div class="no-orders">
+                                    <p>Aún no tienes pedidos realizados.</p>
+                                    <a href="menu.html" class="btn-order-now">Ver Menú</a>
                                 </div>
                             </div>
                         </div>
@@ -205,13 +145,13 @@
                                 <h3>Opciones de Seguridad</h3>
                                 <div class="security-item">
                                     <label>
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" id="emailNotifications" checked>
                                         Recibir notificaciones de seguridad por email
                                     </label>
                                 </div>
                                 <div class="security-item">
                                     <label>
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="twoFactor">
                                         Autenticación de dos factores (2FA)
                                     </label>
                                 </div>
