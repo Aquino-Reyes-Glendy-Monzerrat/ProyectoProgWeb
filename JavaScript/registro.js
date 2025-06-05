@@ -1,4 +1,64 @@
-//// registro.js
+// registro.js - Sistema con Base de Datos JSON
+
+// Simulación de base de datos usando localStorage
+class UserDatabase {
+    constructor() {
+        this.dbKey = 'restaurante_users_db';
+        this.initDatabase();
+    }
+
+    initDatabase() {
+        if (!localStorage.getItem(this.dbKey)) {
+            // Crear base de datos inicial con algunos usuarios de ejemplo
+            const initialUsers = [
+                {
+                    id: 1,
+                    nombre: 'Admin Restaurante',
+                    email: 'admin@restaurante.com',
+                    telefono: '4431234567',
+                    password: 'admin123',
+                    fechaNacimiento: '1990-01-01',
+                    fechaRegistro: '2024-01-01T00:00:00.000Z',
+                    role: 'admin'
+                }
+            ];
+            localStorage.setItem(this.dbKey, JSON.stringify(initialUsers));
+        }
+    }
+
+    getAllUsers() {
+        return JSON.parse(localStorage.getItem(this.dbKey) || '[]');
+    }
+
+    saveUsers(users) {
+        localStorage.setItem(this.dbKey, JSON.stringify(users));
+    }
+
+    addUser(userData) {
+        const users = this.getAllUsers();
+        const newUser = {
+            id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
+            ...userData,
+            fechaRegistro: new Date().toISOString(),
+            role: 'user'
+        };
+        users.push(newUser);
+        this.saveUsers(users);
+        return newUser;
+    }
+
+    findUserByEmail(email) {
+        const users = this.getAllUsers();
+        return users.find(user => user.email.toLowerCase() === email.toLowerCase());
+    }
+
+    emailExists(email) {
+        return this.findUserByEmail(email) !== undefined;
+    }
+}
+
+// Instancia de la base de datos
+const userDB = new UserDatabase();
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registroForm');
@@ -36,16 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (validateForm()) {
-            // Simular envío
-            showSuccess();
+            registerUser();
         }
     });
 
     function validateNombre() {
         const nombre = fields.nombre.value.trim();
-        const errorElement = document.getElementById('nombreError');
         
-        // Limpiar estado previo
         fields.nombre.classList.remove('valid', 'invalid');
         hideError('nombreError');
         
@@ -98,6 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             showError('emailError', 'Formato de correo inválido');
+            fields.email.classList.add('invalid');
+            return false;
+        }
+
+        // Verificar si el email ya existe
+        if (userDB.emailExists(email)) {
+            showError('emailError', 'Este correo ya está registrado');
             fields.email.classList.add('invalid');
             return false;
         }
@@ -235,6 +299,55 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
+    function registerUser() {
+        const submitBtn = document.querySelector('.btn-registro');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Procesando...';
+        
+        // Preparar datos del usuario
+        const userData = {
+            nombre: fields.nombre.value.trim(),
+            email: fields.email.value.trim().toLowerCase(),
+            telefono: fields.telefono.value.trim(),
+            password: fields.password.value,
+            fechaNacimiento: fields.fechaNacimiento.value
+        };
+
+        try {
+            // Registrar usuario en la base de datos
+            const newUser = userDB.addUser(userData);
+            
+            // Simular tiempo de procesamiento
+            setTimeout(() => {
+                showAlert('¡Registro exitoso! Bienvenido a nuestro restaurante. Serás redirigido a la página principal.', 'success');
+                
+                // Crear sesión automáticamente
+                const userSession = {
+                    id: newUser.id,
+                    email: newUser.email,
+                    nombre: newUser.nombre,
+                    role: newUser.role,
+                    loginTime: new Date().toISOString()
+                };
+                
+                // Guardar sesión
+                sessionStorage.setItem('userSession', JSON.stringify(userSession));
+                
+                // Redirigir a index después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                
+            }, 1500);
+            
+        } catch (error) {
+            console.error('Error al registrar usuario:', error);
+            showAlert('Error al procesar el registro. Inténtalo de nuevo.', 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Crear Cuenta';
+        }
+    }
+
     function showError(elementId, message) {
         const errorElement = document.getElementById(elementId);
         errorElement.textContent = message;
@@ -247,30 +360,56 @@ document.addEventListener('DOMContentLoaded', function() {
         errorElement.classList.remove('show');
     }
 
-    function showSuccess() {
-        // Deshabilitar botón mientras se "procesa"
-        const submitBtn = document.querySelector('.btn-registro');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Procesando...';
+    function showAlert(message, type) {
+        // Remover alerta existente si la hay
+        const existingAlert = document.querySelector('.alert');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
         
-        // Simular procesamiento
+        const alert = document.createElement('div');
+        alert.className = `alert ${type}`;
+        alert.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            max-width: 400px;
+            word-wrap: break-word;
+            animation: slideIn 0.3s ease-out;
+        `;
+        
+        if (type === 'success') {
+            alert.style.backgroundColor = '#4CAF50';
+        } else if (type === 'error') {
+            alert.style.backgroundColor = '#f44336';
+        }
+        
+        alert.textContent = message;
+        document.body.appendChild(alert);
+        
+        // Añadir animación CSS si no existe
+        if (!document.querySelector('#alertStyles')) {
+            const style = document.createElement('style');
+            style.id = 'alertStyles';
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Remover alerta después de 5 segundos
         setTimeout(() => {
-            alert('¡Registro exitoso! Bienvenido a nuestro restaurante.');
-            // Aquí podrías redirigir a otra página
-            // window.location.href = 'iniciarsesion.html';
-            
-            // Resetear formulario
-            form.reset();
-            document.querySelectorAll('.valid, .invalid').forEach(el => {
-                el.classList.remove('valid', 'invalid');
-            });
-            document.querySelectorAll('.error-msg').forEach(el => {
-                el.classList.remove('show');
-                el.textContent = '';
-            });
-            
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Crear Cuenta';
-        }, 2000);
+            if (alert.parentNode) {
+                alert.remove();
+            }
+        }, 5000);
     }
 });

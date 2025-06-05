@@ -198,3 +198,4 @@ function savelocal(){
 
     localStorage.setItem('products',JSON.stringify(productsArray));
 }
+

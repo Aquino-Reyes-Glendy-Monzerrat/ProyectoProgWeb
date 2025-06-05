@@ -1,4 +1,37 @@
+// iniciarsesion.js - Sistema con Base de Datos JSON
+
+// Clase para manejar la base de datos de usuarios
+class UserDatabase {
+    constructor() {
+        this.dbKey = 'restaurante_users_db';
+    }
+
+    getAllUsers() {
+        return JSON.parse(localStorage.getItem(this.dbKey) || '[]');
+    }
+
+    findUserByEmail(email) {
+        const users = this.getAllUsers();
+        return users.find(user => user.email.toLowerCase() === email.toLowerCase());
+    }
+
+    validateCredentials(email, password) {
+        const user = this.findUserByEmail(email);
+        return user && user.password === password ? user : null;
+    }
+
+    updateLastLogin(userId) {
+        const users = this.getAllUsers();
+        const userIndex = users.findIndex(user => user.id === userId);
+        if (userIndex !== -1) {
+            users[userIndex].ultimoAcceso = new Date().toISOString();
+            localStorage.setItem(this.dbKey, JSON.stringify(users));
+        }
+    }
+}
+
 // Variables globales
+const userDB = new UserDatabase();
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
@@ -7,22 +40,6 @@ const forgotPasswordLink = document.getElementById('forgotPasswordLink');
 const forgotPasswordModal = document.getElementById('forgotPasswordModal');
 const closeModal = document.getElementById('closeModal');
 const forgotPasswordForm = document.getElementById('forgotPasswordForm');
-
-// Usuarios de ejemplo (simulando base de datos)
-const users = [
-    {
-        email: 'admin@restaurante.com',
-        password: 'admin123',
-        name: 'Administrador',
-        role: 'admin'
-    },
-    {
-        email: 'usuario@email.com',
-        password: 'user123',
-        name: 'Usuario Demo',
-        role: 'user'
-    }
-];
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
@@ -118,7 +135,7 @@ function hideError(errorElement) {
 function handleLogin(e) {
     e.preventDefault();
     
-    const email = emailInput.value.trim();
+    const email = emailInput.value.trim().toLowerCase();
     const password = passwordInput.value;
     
     // Validar campos
@@ -130,45 +147,62 @@ function handleLogin(e) {
         return;
     }
     
-    // Simular verificación de credenciales
-    const user = users.find(u => u.email === email && u.password === password);
+    // Deshabilitar botón mientras se procesa
+    const loginBtn = document.querySelector('.btn-login');
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Iniciando sesión...';
     
-    if (user) {
-        // Login exitoso
-        showAlert('¡Inicio de sesión exitoso! Bienvenido ' + user.name, 'success');
+    // Simular tiempo de procesamiento
+    setTimeout(() => {
+        // Verificar credenciales con la base de datos
+        const user = userDB.validateCredentials(email, password);
         
-        // Guardar sesión si se marcó "recordar"
-        if (rememberCheckbox.checked) {
-            localStorage.setItem('userSession', JSON.stringify({
+        if (user) {
+            // Login exitoso
+            showAlert('¡Inicio de sesión exitoso! Bienvenido/a ' + user.nombre, 'success');
+            
+            // Actualizar último acceso
+            userDB.updateLastLogin(user.id);
+            
+            // Crear datos de sesión
+            const userSession = {
+                id: user.id,
                 email: user.email,
-                name: user.name,
-                role: user.role,
+                nombre: user.nombre,
+                telefono: user.telefono,
+                fechaNacimiento: user.fechaNacimiento,
+                fechaRegistro: user.fechaRegistro,
+                role: user.role || 'user',
                 loginTime: new Date().toISOString()
-            }));
-        } else {
-            sessionStorage.setItem('userSession', JSON.stringify({
-                email: user.email,
-                name: user.name,
-                role: user.role,
-                loginTime: new Date().toISOString()
-            }));
-        }
-        
-        // Redireccionar después de 2 segundos
-        setTimeout(() => {
-            if (user.role === 'admin') {
-                window.location.href = 'perfilusuario.html'; // O página de admin
+            };
+            
+            // Guardar sesión según la opción de recordar
+            if (rememberCheckbox.checked) {
+                localStorage.setItem('userSession', JSON.stringify(userSession));
             } else {
-                window.location.href = 'index.html';
+                sessionStorage.setItem('userSession', JSON.stringify(userSession));
             }
-        }, 2000);
-        
-    } else {
-        // Credenciales incorrectas
-        showAlert('Email o contraseña incorrectos', 'error');
-        setInputState(emailInput, 'invalid');
-        setInputState(passwordInput, 'invalid');
-    }
+            
+            // Redireccionar después de 2 segundos
+            setTimeout(() => {
+                if (user.role === 'admin') {
+                    window.location.href = 'perfilusuario.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            }, 2000);
+            
+        } else {
+            // Credenciales incorrectas
+            showAlert('Email o contraseña incorrectos', 'error');
+            setInputState(emailInput, 'invalid');
+            setInputState(passwordInput, 'invalid');
+            
+            // Rehabilitar botón
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Iniciar Sesión';
+        }
+    }, 1000);
 }
 
 // Verificar sesión guardada
@@ -178,7 +212,7 @@ function checkSavedSession() {
     if (savedSession) {
         const session = JSON.parse(savedSession);
         // Si ya hay una sesión activa, preguntar si quiere continuar
-        if (confirm(`¡Hola ${session.name}! ¿Quieres continuar con tu sesión actual?`)) {
+        if (confirm(`¡Hola ${session.nombre}! ¿Quieres continuar con tu sesión actual?`)) {
             window.location.href = 'index.html';
         } else {
             // Limpiar sesión
@@ -204,7 +238,7 @@ function closeForgotPasswordModal() {
 function handlePasswordRecovery(e) {
     e.preventDefault();
     
-    const recoveryEmail = document.getElementById('recoveryEmail').value.trim();
+    const recoveryEmail = document.getElementById('recoveryEmail').value.trim().toLowerCase();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     if (!emailRegex.test(recoveryEmail)) {
@@ -212,12 +246,16 @@ function handlePasswordRecovery(e) {
         return;
     }
     
-    // Verificar si el email existe en la "base de datos"
-    const userExists = users.some(user => user.email === recoveryEmail);
+    // Verificar si el email existe en la base de datos
+    const user = userDB.findUserByEmail(recoveryEmail);
     
-    if (userExists) {
+    if (user) {
         showAlert('Se han enviado las instrucciones de recuperación a tu email', 'success');
         closeForgotPasswordModal();
+        
+        // En un sistema real, aquí se enviaría un email
+        console.log(`Email de recuperación enviado a: ${recoveryEmail}`);
+        console.log(`Contraseña temporal: ${user.password} (solo para desarrollo)`);
     } else {
         showAlert('No se encontró una cuenta con ese email', 'error');
     }
@@ -233,16 +271,48 @@ function showAlert(message, type) {
     
     const alert = document.createElement('div');
     alert.className = `alert ${type}`;
-    alert.textContent = message;
+    alert.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        z-index: 1000;
+        max-width: 400px;
+        word-wrap: break-word;
+        animation: slideIn 0.3s ease-out;
+    `;
     
+    if (type === 'success') {
+        alert.style.backgroundColor = '#4CAF50';
+    } else if (type === 'error') {
+        alert.style.backgroundColor = '#f44336';
+    }
+    
+    alert.textContent = message;
     document.body.appendChild(alert);
     
-    // Remover alerta después de la animación
+    // Añadir animación CSS si no existe
+    if (!document.querySelector('#alertStyles')) {
+        const style = document.createElement('style');
+        style.id = 'alertStyles';
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Remover alerta después de 4 segundos
     setTimeout(() => {
         if (alert.parentNode) {
             alert.remove();
         }
-    }, 3000);
+    }, 4000);
 }
 
 // Función auxiliar para obtener la sesión actual (para usar en otras páginas)
