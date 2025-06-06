@@ -96,25 +96,25 @@ function loadUserOrders() {
         return;
     }
 
-    const ordersHTML = currentUser.orders.map(order => {
-        return `
-        <div class="card mb-3 shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
-                <h5 class="mb-0">Pedido #${order.id}</h5>
-                <small>${new Date(order.date).toLocaleString('es-MX')}</small>
-            </div>
-            <div class="card-body">
-                <p><strong>Total:</strong> ${formatCurrency(order.total)}</p>
-                <p><strong>Estado:</strong> <span class="badge ${order.status === 'Entregado' ? 'bg-success' : 'bg-warning'}">${order.status}</span></p>
-                <p><strong>Productos:</strong></p>
-                <ul class="list-group list-group-flush mb-3">
-                    ${order.items.map(item => `<li class="list-group-item">${item.title} x${item.quantity}</li>`).join('')}
-                </ul>
-                <button class="btn btn-outline-primary btn-sm" onclick="reorder(${order.id})">
-                    <i class="bi bi-cart-plus"></i> Volver a pedir
-                </button>
-            </div>
-        </div>`;
+    const ordersHTML = currentUser.orders.slice().reverse().map(order => {
+    return `
+    <div class="card mb-3 shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+            <h5 class="mb-0">Pedido #${order.id}</h5>
+            <small>${new Date(order.date).toLocaleString('es-MX')}</small>
+        </div>
+        <div class="card-body">
+            <p><strong>Total:</strong> ${formatCurrency(order.total)}</p>
+            <p><strong>Estado:</strong> <span class="badge ${order.status === 'Entregado' ? 'bg-success' : 'bg-warning'}">${order.status}</span></p>
+            <p><strong>Productos:</strong></p>
+            <ul class="list-group list-group-flush mb-3">
+                ${order.items.map(item => `<li class="list-group-item">${item.title} x${item.quantity}</li>`).join('')}
+            </ul>
+            <button class="btn btn-outline-primary btn-sm" onclick="reorder(${order.id})">
+                <i class="bi bi-cart-plus"></i> Volver a pedir
+            </button>
+        </div>
+    </div>`;
     }).join('');
 
     document.getElementById('ordersList').innerHTML = ordersHTML;

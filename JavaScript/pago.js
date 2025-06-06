@@ -42,7 +42,7 @@ function procesarPago() {
         id: Date.now(),
         date: new Date().toISOString(),
         total: total,
-        status: 'Pendiente',
+        status: 'Entregado',
         items: carrito.map(p => ({
             id: p.id,
             title: p.title,
@@ -113,7 +113,7 @@ function cargarCarritoEnPago() {
 
 function mostrarFormularioPago(valor) {
     const formE = document.querySelector('#formEfectivo');
-    const formT = document.querySelector('#formTransferencia');
+    const formT = document.querySelector('#formTarjeta');
     if (formE) formE.classList.add('hidden');
     if (formT) formT.classList.add('hidden');
 

@@ -113,7 +113,7 @@
     <input type="radio" name="payment" value="transfer">
     <div class="method-card">
       <img src="https://img.icons8.com/fluency/48/bank-card-back-side.png" alt="Transferencia">
-      <span>Transferencia</span>
+      <span>Tarjeta</span>
     </div>
   </label>
 
@@ -129,8 +129,8 @@
     <div id="formEfectivo" class="hidden">
       <h3>Pago en efectivo</h3>
       <div class="form-group">
-        <label for="nombreE">Nombre:</label>
-        <input type="text" id="nombreE" />
+        <label for="nombreE">Nombre ddel Titular:</label>
+        <input type="text" id="nombreT" name="nombreT" pattern="[A-Za-z\s]+" title="Solo letras y espacios" required/>
         <div class="total">Total:
         <span class="mostrar-total"></span>
         <button class="btn-pagar" id="pagar-efectivo">Pagar</button>
@@ -138,21 +138,35 @@
     </div>
     </div>
 
-    <div id="formTransferencia" class="hidden">
-      <h3>Pago por transferencia</h3>
-      <div class="form-group">
-        <label for="nombreT">Nombre del titular:</label>
-        <input type="text" id="nombreT" />
-      </div>
-      <div class="form-group">
-        <label for="referencia">Número de referencia:</label>
-        <input type="text" id="referencia" />
-        <div class="total">Total:
-        <span class="mostrar-total"></span>
-        <button class="btn-pagar" id="pagar-transferencia">Pagar</button>
-        </div>
-    </div>
-    </div>
+<div id="formTarjeta" class="hidden">
+  <h3>Pago por tarjeta</h3>
+
+  <div class="form-group">
+    <label for="nombreT">Nombre del titular:</label>
+    <input type="text" id="nombreT" name="nombreT" pattern="[A-Za-z\s]+" title="Solo letras y espacios" required/>
+  </div>
+
+  <div class="form-group">
+    <label for="tarjeta">Número de tarjeta:</label>
+    <input type="text" id="tarjeta" name="tarjeta" pattern="\d{16}" maxlength="16" minlength="16" title="Debe contener exactamente 16 dígitos" required/>
+  </div>
+
+  <div class="form-group">
+    <label for="fecha">Fecha de vencimiento:</label>
+    <input type="month" id="fecha" name="fecha" min="2025-06" required>
+  </div>
+
+  <div class="form-group">
+    <label for="cvv">CVV:</label>
+    <input type="password" id="cvv" name="cvv" pattern="\d{3}" maxlength="3" minlength="3" title="Debe contener 3 dígitos" required/>
+  </div>
+
+  <div class="total">
+    Total: <span class="mostrar-total"></span>
+  </div>
+  <button class="btn-pagar" id="pagar-transferencia">Pagar</button>
+</div>
+
   </div>
   <!--------------------------------------------------------------------------------------------------------->
 
