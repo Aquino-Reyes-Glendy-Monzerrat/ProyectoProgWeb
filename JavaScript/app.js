@@ -3,11 +3,22 @@ const botones = document.querySelectorAll('.btn-add');
 const contentproducts = document.querySelector('#contentProducts');
 const emptyCart = document.querySelector('#emptyCart');
 
-document.addEventListener('DOMContentLoaded', function () {
-    eventListeners();
+document.addEventListener('DOMContentLoaded', () => {
     cargarProductosGuardados();
+    eventListeners();
     configurarPago();
 });
+
+// Carga productos guardados del localStorage
+function cargarProductosGuardados() {
+    const loadProd = localStorage.getItem('products');
+    if (loadProd) {
+        productsArray = JSON.parse(loadProd);
+        productsHtml();
+        updatecartcount();
+        updateTotal();
+    }
+}
 
 // Configura los listeners de botones
 function eventListeners() {
@@ -22,18 +33,8 @@ function eventListeners() {
             updatecartcount();
             updateTotal();
             localStorage.removeItem('products');
+            showAlert('Carrito Vaciado', 'error');
         });
-    }
-}
-
-// Carga productos guardados del localStorage
-function cargarProductosGuardados() {
-    const loadProd = localStorage.getItem('products');
-    if (loadProd) {
-        productsArray = JSON.parse(loadProd);
-        productsHtml();
-        updatecartcount();
-        updateTotal();
     }
 }
 
@@ -85,14 +86,16 @@ function selectData(prod) {
         quantity: 1
     };
 
-    const exists = productsArray.some(prod => prod.id === productObj.id);
-    if (exists) {
-        showAlert('El producto ya está en el carrito', 'error');
-        return;
+    // Buscar si ya está el producto
+    const existingProduct = productsArray.find(p => p.id === productObj.id);
+
+    if (existingProduct) {
+        showAlert('Producto ya añadido', 'warning');
+    } else {
+        productsArray.push(productObj);
+        showAlert('Producto añadido', 'success');
     }
 
-    productsArray.push(productObj);
-    showAlert('Producto añadido', 'success');
     productsHtml();
     updatecartcount();
     updateTotal();
@@ -115,6 +118,8 @@ function productsHtml() {
         `;
         contentproducts.appendChild(tr);
     });
+
+    console.log(productsArray.map(p => p.id));
 
     savelocal();
 }
@@ -152,16 +157,17 @@ function showAlert(message, type) {
 // Actualiza la cantidad de un producto
 function updateCantidad(e) {
     const newCantidad = parseInt(e.target.value, 10);
-    const idProd = parseInt(e.target.dataset.id, 10);
-    const product = productsArray.find(prod => prod.id === idProd);
+    const idProd = e.target.dataset.id;
+
+    const product = productsArray.find(prod => String(prod.id) === String(idProd));
 
     if (product && newCantidad > 0) {
         product.quantity = newCantidad;
+        savelocal();
+        updateTotal();
+        updatecartcount(); // si quieres actualizar contador también
     }
-
-    productsHtml();
-    updateTotal();
-    savelocal();
+    // NO llamar productsHtml() aquí
 }
 
 // Guarda productos en localStorage

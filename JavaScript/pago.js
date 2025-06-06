@@ -32,33 +32,28 @@ function procesarPago() {
     }
 
     const userSession = JSON.parse(localStorage.getItem('userSession') || sessionStorage.getItem('userSession') || 'null');
-    console.log('userSession:', userSession);
-
     if (!userSession) {
         alert("No hay sesión activa.");
         window.location.href = "../HTML/iniciarsesion.html";
         return;
     }
 
-    const nuevoPedido = {
+    const pedido = {
         id: Date.now(),
         date: new Date().toISOString(),
-        status: 'confirmado',
-        metodo: metodo.value,
         total: total,
+        status: 'Pendiente',
         items: carrito.map(p => ({
+            id: p.id,
             title: p.title,
-            quantity: p.quantity,
             price: p.price,
+            quantity: p.quantity,
             img: p.img
         }))
     };
 
     const users = JSON.parse(localStorage.getItem('restaurante_users_db') || '[]');
-    console.log('Usuarios registrados:', users);
-
     const currentUserIndex = users.findIndex(u => u.email === userSession.email);
-    console.log('Índice del usuario actual:', currentUserIndex);
 
     if (currentUserIndex === -1) {
         alert("Usuario no encontrado.");
@@ -67,17 +62,12 @@ function procesarPago() {
 
     const currentUser = users[currentUserIndex];
     currentUser.orders = currentUser.orders || [];
-    currentUser.orders.push(nuevoPedido);
-    console.log('Pedido agregado a currentUser:', currentUser.orders);
+    currentUser.orders.push(pedido);
 
-    // Guardar en restaurante_users_db
+    // Guardar cambios
     users[currentUserIndex] = currentUser;
     localStorage.setItem('restaurante_users_db', JSON.stringify(users));
-    console.log('restaurante_users_db actualizado:', users);
-
-    // Guardar en currentUser
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    console.log('currentUser actualizado:', currentUser);
 
     // Limpiar carrito
     localStorage.removeItem('products');

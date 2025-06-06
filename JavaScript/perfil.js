@@ -122,24 +122,43 @@ function loadUserOrders() {
 
 // FUNCIONALIDAD DE "VOLVER A PEDIR"
 function reorder(orderId) {
+    const users = JSON.parse(localStorage.getItem('restaurante_users_db') || '[]');
+    const userSession = JSON.parse(localStorage.getItem('userSession') || sessionStorage.getItem('userSession') || 'null');
+    if (!userSession) return;
+
+    const currentUser = users.find(u => u.email === userSession.email);
+    if (!currentUser) return;
+
     const pedido = currentUser.orders.find(p => p.id === orderId);
-    if (!pedido) return;
+    if (!pedido || !pedido.items) return;
 
     let carrito = JSON.parse(localStorage.getItem('products')) || [];
 
     pedido.items.forEach(pedidoItem => {
+        // Verifica que tenga ID válido
+        if (!pedidoItem.id) return;
+
         const index = carrito.findIndex(item => item.id === pedidoItem.id);
+
         if (index !== -1) {
             carrito[index].quantity += pedidoItem.quantity || 1;
         } else {
-            carrito.push({ ...pedidoItem, quantity: pedidoItem.quantity || 1 });
+            carrito.push({
+                id: pedidoItem.id,
+                title: pedidoItem.title,
+                price: pedidoItem.price,
+                img: pedidoItem.img || '',
+                quantity: pedidoItem.quantity || 1
+            });
         }
-
     });
 
     localStorage.setItem('products', JSON.stringify(carrito));
-
     showAlert('Productos agregados al carrito', 'success');
+    console.log('Pedido items:', pedido.items);
+    setTimeout(() => {
+      window.location.href = 'menu.html';
+    }, 1500); // para que alcance a ver la alerta
 }
 
 function showAlert(message, type) {
@@ -152,7 +171,6 @@ function showAlert(message, type) {
     document.body.appendChild(div);
 
     setTimeout(() => div.remove(), 8000);
-    window.location.href = "../HTML/menu.html";
 }
 
 
